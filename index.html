@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Roadmap Pembelajaran Informatika — Kelas VIII</title>
+<meta name="description" content="Roadmap pembelajaran Informatika Kelas VIII, Tahun Ajaran 2026/2027" />
+
+<!-- Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Tailwind (CDN, no build step) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: { fontFamily: { poppins: ["Poppins", "sans-serif"] } } },
+  };
+</script>
+
+<!-- AOS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+
+<!-- Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+
+<link rel="stylesheet" href="assets/css/style.css" />
+
+<script>
+  // Terapkan dark mode sedini mungkin agar tidak ada flash warna terang.
+  (function () {
+    const saved = localStorage.getItem("informatika8_theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (saved === "dark" || (!saved && prefersDark)) document.documentElement.classList.add("dark");
+  })();
+</script>
+</head>
+<body class="font-poppins antialiased">
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="sticky top-0 z-50 border-b border-white/10">
+    <div class="glass mx-auto flex max-w-6xl items-center justify-between rounded-b-2xl px-5 py-3 md:px-8">
+      <div class="flex items-center gap-2 font-semibold">
+        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+          <i data-lucide="graduation-cap" class="h-5 w-5"></i>
+        </div>
+        <span class="text-sm md:text-base">Informatika Kelas VIII</span>
+      </div>
+      <button
+        onclick="toggleTheme()"
+        aria-label="Ganti mode gelap/terang"
+        class="glass flex h-10 w-10 items-center justify-center rounded-full transition hover:scale-105"
+      >
+        <i data-theme-icon data-lucide="moon" class="h-5 w-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden px-5 pb-16 pt-16 md:px-8 md:pt-24">
+    <div class="mx-auto max-w-4xl text-center" data-aos="fade-up">
+      <span class="badge glass mb-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[var(--text-soft)]">
+        <i data-lucide="calendar-days" class="h-3.5 w-3.5"></i>
+        Tahun Ajaran 2026/2027
+      </span>
+      <h1 class="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl">
+        Roadmap Pembelajaran
+        <span class="text-gradient block">Informatika Kelas VIII</span>
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-base text-[var(--text-soft)] md:text-lg">
+        Perjalanan belajar selama satu tahun ajaran, dari Bab 1 sampai Bab 9 —
+        lengkap dengan progres, lencana pencapaian, dan materi interaktif di setiap pertemuan.
+      </p>
+
+      <div class="mt-6 flex items-center justify-center gap-3 text-sm text-[var(--text-soft)]">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full glass">
+          <i data-lucide="user-round" class="h-4 w-4"></i>
+        </div>
+        <span>Khalid Nabawi, S.Kom</span>
+      </div>
+
+      <div class="mt-10 flex flex-col items-center gap-3">
+        <a href="#roadmap" class="btn-gradient inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold md:text-base">
+          Mulai Belajar
+          <i data-lucide="arrow-down" class="h-4 w-4"></i>
+        </a>
+      </div>
+
+      <!-- Ringkasan progres tahunan -->
+      <div class="glass-strong mx-auto mt-12 max-w-md rounded-2xl p-5 text-left">
+        <div class="flex items-center justify-between text-xs font-medium text-[var(--text-soft)]">
+          <span class="flex items-center gap-1.5"><i data-lucide="flag" class="h-3.5 w-3.5"></i>Progres Tahun Ajaran</span>
+          <span id="overall-label">0%</span>
+        </div>
+        <div class="mt-2 progress-track">
+          <div id="overall-fill" class="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROADMAP ============ -->
+  <section id="roadmap" class="mx-auto max-w-3xl px-5 pb-28 md:px-8">
+    <div class="mb-10 text-center" data-aos="fade-up">
+      <h2 class="text-2xl font-bold md:text-3xl">Perjalanan Belajar</h2>
+      <p class="mt-2 text-sm text-[var(--text-soft)]">Klik salah satu bab untuk melihat capaian pembelajaran dan daftar pertemuan.</p>
+    </div>
+
+    <div id="roadmap-track" class="flex flex-col gap-10 md:gap-14"></div>
+
+    <div class="mt-16 flex flex-col items-center gap-2 text-center" data-aos="fade-up">
+      <div class="flex h-12 w-12 items-center justify-center rounded-2xl glass-strong">
+        <i data-lucide="party-popper" class="h-6 w-6 text-[var(--blue-600)]"></i>
+      </div>
+      <p class="text-sm font-medium text-[var(--text-soft)]">Selesaikan seluruh bab untuk menuntaskan Praktik Lintas Bidang!</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-white/10 px-5 py-8 text-center text-xs text-[var(--text-soft)] md:px-8">
+    Informatika Kelas VIII • Kurikulum Merdeka • Dibuat untuk mendampingi pembelajaran satu tahun ajaran.
+  </footer>
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/progress.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="assets/js/landing.js"></script>
+</body>
+</html>

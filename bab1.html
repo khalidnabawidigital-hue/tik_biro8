@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bab 1: Informatika dan Pembelajarannya — Materi Lengkap</title>
+<meta name="description" content="Materi interaktif lengkap Bab 1 — Informatika dan Pembelajarannya, Informatika Kelas VIII" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: "class", theme: { extend: { fontFamily: { poppins: ["Poppins", "sans-serif"] } } } };
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+
+<link rel="stylesheet" href="assets/css/style.css" />
+
+<script>
+  (function () {
+    const saved = localStorage.getItem("informatika8_theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (saved === "dark" || (!saved && prefersDark)) document.documentElement.classList.add("dark");
+  })();
+</script>
+
+<style>
+  /* ---------- Flip cards ---------- */
+  .flip-card { perspective: 1200px; height: 100%; cursor: pointer; }
+  .flip-inner {
+    position: relative; width: 100%; height: 100%; min-height: 168px;
+    transition: transform .6s cubic-bezier(.2,.9,.25,1); transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    border-radius: 1rem; padding: 1.1rem; display: flex; flex-direction: column;
+  }
+  .flip-front { background: var(--surface); border: 1px solid var(--border); }
+  .flip-back {
+    transform: rotateY(180deg); color: #fff; justify-content: center;
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-600) 55%, var(--sky-400));
+  }
+
+  /* ---------- Sliders ---------- */
+  input[type="range"] { accent-color: var(--blue-600); }
+
+  /* ---------- Quiz options ---------- */
+  .quiz-opt {
+    display: flex; align-items: center; gap: .6rem; width: 100%; text-align: left;
+    border: 1px solid var(--border); background: var(--surface); border-radius: .9rem;
+    padding: .7rem .9rem; font-size: .85rem; transition: all .2s ease; cursor: pointer;
+  }
+  .quiz-opt:hover { transform: translateX(3px); }
+  .quiz-opt.selected { border-color: var(--blue-600); background: rgba(47,107,240,.12); }
+  .quiz-opt.correct { border-color: var(--success); background: var(--success-bg); color: #15803d; }
+  html.dark .quiz-opt.correct { color: var(--success); }
+  .quiz-opt.wrong { border-color: #ef4444; background: rgba(239,68,68,.14); color: #b91c1c; }
+  html.dark .quiz-opt.wrong { color: #f87171; }
+  .quiz-opt[disabled], .quiz-opt.locked { cursor: default; }
+
+  .term-btn.active { color: var(--blue-600); background: rgba(47,107,240,.14); border-color: transparent; }
+  html.dark .term-btn.active { color: var(--sky-300); background: rgba(87,199,255,.14); }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+    opacity: 0; pointer-events: none; transition: all .3s ease; z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body class="font-poppins antialiased">
+
+  <header class="sticky top-0 z-50 border-b border-white/10">
+    <div class="glass mx-auto flex max-w-5xl items-center justify-between rounded-b-2xl px-5 py-3 md:px-8">
+      <a href="index.html" class="flex min-w-0 items-center gap-2 text-sm font-semibold">
+        <i data-lucide="arrow-left" class="h-4 w-4 shrink-0"></i>
+        <span class="truncate">Bab 1: Informatika dan Pembelajarannya</span>
+      </a>
+      <button onclick="toggleTheme()" aria-label="Ganti mode gelap/terang" class="glass flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:scale-105">
+        <i data-theme-icon data-lucide="moon" class="h-5 w-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-5 pb-24 pt-10 md:px-8">
+
+    <!-- ==== Hero ==== -->
+    <section class="glass-strong rounded-3xl p-6 md:p-10" data-aos="fade-up">
+      <div class="flex items-start gap-5">
+        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+          <i data-lucide="compass" class="h-7 w-7"></i>
+        </div>
+        <div class="min-w-0 flex-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-[var(--text-soft)]">Bab 1 • Materi Lengkap Interaktif</p>
+          <h1 class="mt-1 text-2xl font-bold md:text-3xl">Informatika dan Pembelajarannya</h1>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+            Peserta didik memahami hakikat Informatika, cara belajar Informatika, melakukan refleksi
+            pembelajaran, menyusun rencana belajar, serta membangun karakter Profil Pelajar Pancasila.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-2">
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Apa itu Informatika</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Cara belajar Informatika</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Refleksi kelas VII</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Rencana belajar kelas VIII</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Profil Pelajar Pancasila</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Target satu tahun</span>
+      </div>
+
+      <div class="mt-8">
+        <div class="flex items-center justify-between text-xs font-medium text-[var(--text-soft)]">
+          <span class="flex items-center gap-1.5"><i data-lucide="flag" class="h-3.5 w-3.5"></i>Progres Materi Dipelajari</span>
+          <span id="materi-progress-label">0 / 6</span>
+        </div>
+        <div class="mt-2 progress-track">
+          <div id="materi-progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== Tabs ==== -->
+    <div class="scrollbar-thin sticky top-[70px] z-40 mt-8 flex gap-2 overflow-x-auto pb-2" id="tab-bar" data-aos="fade-up">
+      <button class="tab-pill" data-tab="1"><i data-lucide="lightbulb" class="h-3.5 w-3.5"></i>1. Apa itu Informatika<span class="done-dot hidden" data-dot="1"></span></button>
+      <button class="tab-pill" data-tab="2"><i data-lucide="graduation-cap" class="h-3.5 w-3.5"></i>2. Cara Belajar<span class="done-dot hidden" data-dot="2"></span></button>
+      <button class="tab-pill" data-tab="3"><i data-lucide="rotate-ccw" class="h-3.5 w-3.5"></i>3. Refleksi Kelas VII<span class="done-dot hidden" data-dot="3"></span></button>
+      <button class="tab-pill" data-tab="4"><i data-lucide="clipboard-list" class="h-3.5 w-3.5"></i>4. Rencana Kelas VIII<span class="done-dot hidden" data-dot="4"></span></button>
+      <button class="tab-pill" data-tab="5"><i data-lucide="sparkles" class="h-3.5 w-3.5"></i>5. Profil Pelajar Pancasila<span class="done-dot hidden" data-dot="5"></span></button>
+      <button class="tab-pill" data-tab="6"><i data-lucide="map" class="h-3.5 w-3.5"></i>6. Target Satu Tahun<span class="done-dot hidden" data-dot="6"></span></button>
+      <button class="tab-pill" data-tab="7"><i data-lucide="pencil-line" class="h-3.5 w-3.5"></i>Uji Pemahaman</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 1 -->
+    <!-- ============================================================ -->
+    <section id="section-1" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="lightbulb" class="h-5 w-5 text-[var(--blue-600)]"></i>Apa itu Informatika?</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="1">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          <strong class="text-[var(--text)]">Informatika</strong> adalah ilmu yang mempelajari cara berpikir
+          komputasional (computational thinking) untuk menyelesaikan persoalan sehari-hari dengan bantuan
+          konsep-konsep ilmu komputer — mulai dari cara data diolah, bagaimana perangkat komputer bekerja,
+          hingga bagaimana algoritma disusun menjadi program. Informatika bukan hanya tentang "mengoperasikan
+          komputer", melainkan tentang cara berpikir sistematis, logis, dan terstruktur dalam memecahkan masalah.
+        </p>
+
+        <p class="mt-3 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Ilmu Informatika di Kelas VIII dibagi menjadi <strong class="text-[var(--text)]">delapan elemen</strong>
+          yang saling berkaitan. Ketujuh elemen berikut akan dipelajari sepanjang tahun ajaran pada Bab 2–9.
+          Sentuh/klik kartu di bawah untuk melihat penjelasan singkat tiap elemen.
+        </p>
+
+        <div id="elemen-grid" class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4"></div>
+
+        <div class="mt-8 rounded-2xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--text-soft)]">
+          <p class="flex items-center gap-1.5 font-semibold text-[var(--text)]"><i data-lucide="info" class="h-4 w-4 text-[var(--blue-600)]"></i>Intinya</p>
+          Informatika = <em>cara berpikir</em> (berpikir komputasional) + <em>alat bantu</em> (teknologi & komputer)
+          untuk menyelesaikan masalah secara efektif dan efisien, di dalam maupun di luar dunia digital.
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="2">
+          Lanjut: Cara Belajar Informatika <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 2 -->
+    <!-- ============================================================ -->
+    <section id="section-2" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="graduation-cap" class="h-5 w-5 text-[var(--blue-600)]"></i>Cara Belajar Informatika</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="2">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Belajar Informatika dilakukan lewat dua pendekatan yang saling melengkapi. Coba geser tombol
+          di bawah untuk membandingkan keduanya.
+        </p>
+
+        <div class="mt-5 inline-flex rounded-full border border-[var(--border)] bg-[var(--surface)] p-1 text-xs font-semibold">
+          <button class="approach-btn active rounded-full px-4 py-2" data-approach="unplugged">🧩 Unplugged</button>
+          <button class="approach-btn rounded-full px-4 py-2" data-approach="plugged">💻 Plugged</button>
+        </div>
+
+        <div id="approach-panel" class="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-relaxed text-[var(--text-soft)]"></div>
+
+        <div class="mt-8">
+          <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+            <i data-lucide="brain" class="h-3.5 w-3.5"></i>4 Fondasi Berpikir Komputasional
+          </p>
+          <div id="ct-terms" class="flex flex-wrap gap-2"></div>
+          <div id="ct-detail" class="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-relaxed text-[var(--text-soft)]">
+            Klik salah satu istilah di atas untuk melihat penjelasannya.
+          </div>
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="3">
+          Lanjut: Refleksi Pembelajaran Kelas VII <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 3 -->
+    <!-- ============================================================ -->
+    <section id="section-3" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="rotate-ccw" class="h-5 w-5 text-[var(--blue-600)]"></i>Refleksi Pembelajaran Kelas VII</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="3">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Sebelum melangkah ke materi baru, mari mengingat kembali apa yang sudah dipelajari di kelas VII.
+          Geser tiap penggeser sesuai tingkat pemahamanmu — hasilnya tersimpan otomatis di perangkatmu.
+        </p>
+
+        <div id="reflect-sliders" class="mt-6 flex flex-col gap-5"></div>
+
+        <div class="mt-2">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">Ringkasan Pemahamanmu</p>
+          <div id="reflect-summary" class="flex flex-col gap-2"></div>
+        </div>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <div>
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">Materi yang paling saya kuasai:</label>
+            <textarea id="reflect-q1" rows="3" placeholder="Tuliskan jawabanmu di sini..." class="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm outline-none focus:border-[var(--blue-600)]"></textarea>
+          </div>
+          <div>
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">Materi yang masih ingin saya perdalam:</label>
+            <textarea id="reflect-q2" rows="3" placeholder="Tuliskan jawabanmu di sini..." class="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm outline-none focus:border-[var(--blue-600)]"></textarea>
+          </div>
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="4">
+          Lanjut: Rencana Belajar Kelas VIII <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 4 -->
+    <!-- ============================================================ -->
+    <section id="section-4" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="clipboard-list" class="h-5 w-5 text-[var(--blue-600)]"></i>Rencana Belajar Kelas VIII</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="4">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Rencana belajar yang baik membuat proses belajar lebih terarah. Centang strategi belajar yang ingin
+          kamu terapkan tahun ini.
+        </p>
+
+        <div id="strategi-list" class="mt-5 flex flex-col gap-2"></div>
+        <p id="strategi-count" class="mt-3 text-xs font-medium text-[var(--text-soft)]">0 dari 6 strategi dipilih</p>
+
+        <div class="mt-8">
+          <label class="mb-2 block text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">Target belajar saya di kelas VIII:</label>
+          <textarea id="target-belajar" rows="3" placeholder="Contoh: Saya ingin lebih percaya diri membuat program sederhana dengan Scratch." class="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm outline-none focus:border-[var(--blue-600)]"></textarea>
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="5">
+          Lanjut: Profil Pelajar Pancasila <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 5 -->
+    <!-- ============================================================ -->
+    <section id="section-5" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="sparkles" class="h-5 w-5 text-[var(--blue-600)]"></i>Profil Pelajar Pancasila</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="5">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Profil Pelajar Pancasila adalah karakter dan kompetensi yang ingin dibangun pada setiap peserta didik,
+          termasuk saat belajar Informatika. Klik kartu untuk melihat contoh penerapannya.
+        </p>
+
+        <div id="pancasila-grid" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3"></div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="6">
+          Lanjut: Target Pembelajaran Satu Tahun <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 6 -->
+    <!-- ============================================================ -->
+    <section id="section-6" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="map" class="h-5 w-5 text-[var(--blue-600)]"></i>Target Pembelajaran Satu Tahun</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="6">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Sepanjang tahun ajaran ini, perjalanan belajar Informatika akan melewati 9 bab berikut. Klik salah
+          satu bab untuk langsung membukanya.
+        </p>
+
+        <div id="year-timeline" class="mt-6 flex flex-col gap-3"></div>
+
+        <div class="mt-6 rounded-2xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--text-soft)]" id="year-total"></div>
+
+        <a href="index.html#roadmap" class="btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold">
+          Lihat Roadmap Lengkap <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 7 — QUIZ -->
+    <!-- ============================================================ -->
+    <section id="section-7" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="pencil-line" class="h-5 w-5 text-[var(--blue-600)]"></i>Uji Pemahaman Bab 1</h2>
+        <p class="mt-2 text-sm text-[var(--text-soft)]">Jawab 6 pertanyaan berikut untuk menguji pemahamanmu tentang Bab 1.</p>
+
+        <div id="quiz-list" class="mt-6 flex flex-col gap-6"></div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <button id="quiz-submit" class="btn-gradient inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold">
+            <i data-lucide="check-check" class="h-4 w-4"></i>Cek Jawaban
+          </button>
+          <button id="quiz-reset" class="glass hidden inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold">
+            <i data-lucide="rotate-ccw" class="h-4 w-4"></i>Ulangi Kuis
+          </button>
+        </div>
+
+        <div id="quiz-result" class="mt-6 hidden rounded-2xl p-5 text-center"></div>
+      </div>
+    </section>
+
+    <!-- ==== Navigasi bawah ==== -->
+    <nav class="mt-12 flex items-center justify-between gap-3">
+      <a href="index.html" class="glass inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition hover:scale-[1.02]">
+        <i data-lucide="arrow-left" class="h-4 w-4"></i>Kembali ke Beranda
+      </a>
+      <a href="bab2.html" class="btn-gradient inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold">
+        Bab 2: Berpikir Komputasional <i data-lucide="arrow-right" class="h-4 w-4"></i>
+      </a>
+    </nav>
+  </main>
+
+  <div id="toast" class="toast glass-strong rounded-full px-5 py-3 text-sm font-medium"></div>
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <script>
+  /* =========================================================================
+     Bab 1 — Materi Lengkap Interaktif
+     ========================================================================= */
+  const STORE_KEY = "informatika8_bab1_materi";
+  const REFLECT_KEY = "informatika8_bab1_refleksi";
+  const STRATEGI_KEY = "informatika8_bab1_strategi";
+  const NOTES_KEY = "informatika8_bab1_catatan";
+
+  function loadJSON(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch (e) { return fallback; }
+  }
+  function saveJSON(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+  }
+
+  /* ---------- 1. Elemen Informatika (flip cards) ---------- */
+  const ELEMEN = [
+    { icon: "brain", kode: "BK", judul: "Berpikir Komputasional", desc: "Cara berpikir sistematis: dekomposisi, pengenalan pola, abstraksi, dan algoritma untuk memecahkan masalah." },
+    { icon: "monitor", kode: "TIK", judul: "Teknologi Informasi & Komunikasi", desc: "Menggunakan aplikasi digital secara efektif: pengolah kata, laporan digital, hingga laboratorium virtual." },
+    { icon: "cpu", kode: "SK", judul: "Sistem Komputer", desc: "Memahami perangkat keras, perangkat lunak, sistem operasi, dan cara kerja CPU serta memori." },
+    { icon: "wifi", kode: "JKI", judul: "Jaringan Komputer & Internet", desc: "Mempelajari LAN, internet, routing, komunikasi data, dan cara berinternet dengan aman." },
+    { icon: "bar-chart-3", kode: "AD", judul: "Analisis Data", desc: "Mengolah, mencari, meringkas, memvisualisasikan, dan menyajikan data agar mudah dipahami." },
+    { icon: "code-2", kode: "AP", judul: "Algoritma & Pemrograman", desc: "Membuat program dengan Scratch dan Blockly: variabel, percabangan, perulangan, dan prosedur." },
+    { icon: "users", kode: "DSI", judul: "Dampak Sosial Informatika", desc: "Memahami dampak media sosial, hoaks, cyberbullying, dan pentingnya etika digital." },
+    { icon: "rocket", kode: "PLB", judul: "Praktik Lintas Bidang", desc: "Menggabungkan seluruh materi dalam sebuah proyek Informatika yang nyata dan bermanfaat." },
+  ];
+
+  function renderElemen() {
+    const grid = document.getElementById("elemen-grid");
+    grid.innerHTML = ELEMEN.map((e, i) => `
+      <div class="flip-card" data-flip="${i}">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+              <i data-lucide="${e.icon}" class="h-4.5 w-4.5"></i>
+            </div>
+            <p class="mt-3 text-[10px] font-bold uppercase tracking-wider text-[var(--blue-600)]">${e.kode}</p>
+            <p class="mt-1 text-sm font-semibold leading-snug">${e.judul}</p>
+            <p class="mt-auto pt-2 text-[11px] text-[var(--text-soft)]">Klik untuk detail →</p>
+          </div>
+          <div class="flip-back">
+            <p class="text-xs leading-relaxed">${e.desc}</p>
+          </div>
+        </div>
+      </div>
+    `).join("");
+    grid.querySelectorAll(".flip-card").forEach((card) => {
+      card.addEventListener("click", () => card.classList.toggle("flipped"));
+    });
+    if (window.lucide) lucide.createIcons();
+  }
+
+  /* ---------- 2. Pendekatan belajar + CT terms ---------- */
+  const APPROACH = {
+    unplugged: `<p class="font-semibold text-[var(--text)] mb-2">🧩 Unplugged (Tanpa Komputer)</p>
+      Belajar konsep Informatika lewat permainan, gerakan tubuh, kartu, atau alat peraga sederhana —
+      tanpa perlu perangkat komputer. Contoh: menyusun langkah algoritma dengan kartu instruksi,
+      atau simulasi jaringan komputer memakai benang wol antar siswa.`,
+    plugged: `<p class="font-semibold text-[var(--text)] mb-2">💻 Plugged (Dengan Komputer)</p>
+      Belajar langsung menggunakan komputer, laptop, atau aplikasi digital untuk mempraktikkan konsep
+      yang sudah dipahami. Contoh: menulis program di Scratch, mengolah data di spreadsheet, atau
+      menjelajahi internet dengan aman.`,
+  };
+
+  function renderApproach(mode) {
+    document.getElementById("approach-panel").innerHTML = APPROACH[mode];
+    document.querySelectorAll(".approach-btn").forEach((b) => b.classList.toggle("active", b.dataset.approach === mode));
+  }
+
+  const CT_TERMS = [
+    { term: "Dekomposisi", desc: "Memecah masalah besar dan rumit menjadi bagian-bagian kecil yang lebih sederhana sehingga lebih mudah diselesaikan satu per satu." },
+    { term: "Pengenalan Pola", desc: "Menemukan kesamaan atau pola dari beberapa masalah, sehingga solusi yang pernah berhasil bisa dipakai lagi untuk masalah serupa." },
+    { term: "Abstraksi", desc: "Fokus pada informasi yang penting saja dan mengabaikan detail yang tidak diperlukan agar masalah lebih mudah dipahami." },
+    { term: "Algoritma", desc: "Menyusun langkah-langkah penyelesaian masalah secara runtut, logis, dan jelas sehingga bisa diikuti (oleh manusia maupun komputer)." },
+  ];
+
+  function renderCTTerms() {
+    const wrap = document.getElementById("ct-terms");
+    wrap.innerHTML = CT_TERMS.map((t, i) => `<button class="term-btn tab-pill" data-term="${i}">${t.term}</button>`).join("");
+    wrap.querySelectorAll(".term-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        wrap.querySelectorAll(".term-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const t = CT_TERMS[+btn.dataset.term];
+        document.getElementById("ct-detail").innerHTML = `<p class="font-semibold text-[var(--text)] mb-1">${t.term}</p>${t.desc}`;
+      });
+    });
+  }
+
+  /* ---------- 3. Refleksi kelas VII (sliders) ---------- */
+  const REFLEKSI_TOPIK = [
+    "Berpikir Komputasional Dasar",
+    "Sistem Komputer",
+    "Jaringan Lokal (LAN)",
+    "Aplikasi Perkantoran Dasar",
+    "Algoritma & Pemrograman Sederhana",
+  ];
+  const RATING_LABEL = ["Belum paham", "Sedikit paham", "Cukup paham", "Paham", "Sangat paham"];
+
+  function renderReflect() {
+    const saved = loadJSON(REFLECT_KEY, {});
+    const wrap = document.getElementById("reflect-sliders");
+    wrap.innerHTML = REFLEKSI_TOPIK.map((topik, i) => {
+      const val = saved[i] ?? 3;
+      return `
+        <div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="font-medium">${topik}</span>
+            <span class="reflect-label text-xs font-semibold text-[var(--blue-600)]" data-label="${i}">${RATING_LABEL[val - 1]}</span>
+          </div>
+          <input type="range" min="1" max="5" step="1" value="${val}" data-slider="${i}" class="mt-2 w-full" />
+        </div>`;
+    }).join("");
+
+    wrap.querySelectorAll("input[type=range]").forEach((input) => {
+      input.addEventListener("input", () => {
+        const i = +input.dataset.slider;
+        document.querySelector(`[data-label="${i}"]`).textContent = RATING_LABEL[input.value - 1];
+        const data = loadJSON(REFLECT_KEY, {});
+        data[i] = +input.value;
+        saveJSON(REFLECT_KEY, data);
+        renderReflectSummary();
+      });
+    });
+
+    document.getElementById("reflect-q1").value = localStorage.getItem(NOTES_KEY + "_q1") || "";
+    document.getElementById("reflect-q2").value = localStorage.getItem(NOTES_KEY + "_q2") || "";
+    document.getElementById("reflect-q1").addEventListener("blur", (e) => localStorage.setItem(NOTES_KEY + "_q1", e.target.value));
+    document.getElementById("reflect-q2").addEventListener("blur", (e) => localStorage.setItem(NOTES_KEY + "_q2", e.target.value));
+
+    renderReflectSummary();
+  }
+
+  function renderReflectSummary() {
+    const saved = loadJSON(REFLECT_KEY, {});
+    const box = document.getElementById("reflect-summary");
+    box.innerHTML = REFLEKSI_TOPIK.map((topik, i) => {
+      const val = saved[i] ?? 3;
+      return `
+        <div class="flex items-center gap-3 text-xs">
+          <span class="w-40 shrink-0 text-[var(--text-soft)]">${topik}</span>
+          <div class="progress-track flex-1"><div class="progress-fill" style="width:${val * 20}%"></div></div>
+          <span class="w-6 text-right font-semibold">${val}/5</span>
+        </div>`;
+    }).join("");
+  }
+
+  /* ---------- 4. Strategi belajar (checklist) ---------- */
+  const STRATEGI = [
+    "Membuat catatan ringkas setiap selesai pertemuan",
+    "Berlatih soal/tugas praktik secara rutin, bukan hanya sebelum ulangan",
+    "Bertanya kepada guru atau teman saat ada materi yang belum dipahami",
+    "Mengerjakan proyek/latihan Scratch & Blockly secara mandiri di rumah",
+    "Membentuk kelompok belajar untuk diskusi materi yang sulit",
+    "Menjaga etika digital saat mencari referensi & berinteraksi daring",
+  ];
+
+  function renderStrategi() {
+    const saved = loadJSON(STRATEGI_KEY, {});
+    const wrap = document.getElementById("strategi-list");
+    wrap.innerHTML = STRATEGI.map((s, i) => `
+      <label class="meeting-row glass flex cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm">
+        <input type="checkbox" data-strategi="${i}" class="h-4 w-4 accent-[var(--blue-600)]" ${saved[i] ? "checked" : ""} />
+        <span>${s}</span>
+      </label>
+    `).join("");
+    wrap.querySelectorAll("input[type=checkbox]").forEach((cb) => {
+      cb.addEventListener("change", () => {
+        const data = loadJSON(STRATEGI_KEY, {});
+        data[cb.dataset.strategi] = cb.checked;
+        saveJSON(STRATEGI_KEY, data);
+        updateStrategiCount();
+      });
+    });
+    updateStrategiCount();
+
+    document.getElementById("target-belajar").value = localStorage.getItem(NOTES_KEY + "_target") || "";
+    document.getElementById("target-belajar").addEventListener("blur", (e) => localStorage.setItem(NOTES_KEY + "_target", e.target.value));
+  }
+
+  function updateStrategiCount() {
+    const saved = loadJSON(STRATEGI_KEY, {});
+    const count = Object.values(saved).filter(Boolean).length;
+    document.getElementById("strategi-count").textContent = `${count} dari ${STRATEGI.length} strategi dipilih`;
+  }
+
+  /* ---------- 5. Profil Pelajar Pancasila (flip cards) ---------- */
+  const PANCASILA = [
+    { icon: "hand-heart", judul: "Beriman & Berakhlak Mulia", desc: "Menggunakan teknologi dengan jujur, bertanggung jawab, dan tidak menyalahgunakannya, misalnya tidak menyontek tugas digital orang lain." },
+    { icon: "globe-2", judul: "Berkebinekaan Global", desc: "Menghargai perbedaan saat berdiskusi atau bekerja sama daring dengan teman dari latar belakang berbeda." },
+    { icon: "handshake", judul: "Bergotong Royong", desc: "Aktif berkolaborasi dalam proyek kelompok, seperti membuat program Scratch bersama secara adil dan saling membantu." },
+    { icon: "footprints", judul: "Mandiri", desc: "Berinisiatif menyelesaikan latihan atau mencari referensi sendiri sebelum bertanya, serta bertanggung jawab atas tugasnya." },
+    { icon: "brain-cog", judul: "Bernalar Kritis", desc: "Memeriksa kebenaran informasi sebelum mempercayai atau membagikannya, tidak mudah termakan hoaks." },
+    { icon: "palette", judul: "Kreatif", desc: "Menghasilkan ide, program, atau karya digital yang orisinal untuk menyelesaikan masalah dengan cara baru." },
+  ];
+
+  function renderPancasila() {
+    const grid = document.getElementById("pancasila-grid");
+    grid.innerHTML = PANCASILA.map((p, i) => `
+      <div class="flip-card" data-flip-p="${i}">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+              <i data-lucide="${p.icon}" class="h-4.5 w-4.5"></i>
+            </div>
+            <p class="mt-3 text-sm font-semibold leading-snug">${p.judul}</p>
+            <p class="mt-auto pt-2 text-[11px] text-[var(--text-soft)]">Klik untuk contoh →</p>
+          </div>
+          <div class="flip-back">
+            <p class="text-xs leading-relaxed">${p.desc}</p>
+          </div>
+        </div>
+      </div>
+    `).join("");
+    grid.querySelectorAll(".flip-card").forEach((card) => {
+      card.addEventListener("click", () => card.classList.toggle("flipped"));
+    });
+    if (window.lucide) lucide.createIcons();
+  }
+
+  /* ---------- 6. Timeline satu tahun (dari data.js) ---------- */
+  function renderTimeline() {
+    const wrap = document.getElementById("year-timeline");
+    wrap.innerHTML = BAB_DATA.map((b) => `
+      <a href="${b.slug}.html" class="meeting-row glass flex items-center gap-4 rounded-2xl px-4 py-3">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+          <i data-lucide="${b.icon}" class="h-5 w-5"></i>
+        </div>
+        <div class="min-w-0 flex-1">
+          <p class="truncate text-sm font-semibold">Bab ${b.id}: ${b.judul}</p>
+          <p class="text-xs text-[var(--text-soft)]">${b.pertemuan} pertemuan</p>
+        </div>
+        <i data-lucide="chevron-right" class="h-4 w-4 shrink-0 text-[var(--text-soft)]"></i>
+      </a>
+    `).join("");
+    const total = BAB_DATA.reduce((a, b) => a + b.pertemuan, 0);
+    document.getElementById("year-total").innerHTML =
+      `<i data-lucide="calendar-days" class="mr-1 inline h-4 w-4 text-[var(--blue-600)]"></i>Total <strong class="text-[var(--text)]">${BAB_DATA.length} bab</strong> dan <strong class="text-[var(--text)]">${total} pertemuan</strong> sepanjang tahun ajaran ini.`;
+    if (window.lucide) lucide.createIcons();
+  }
+
+  /* ---------- 7. Kuis ---------- */
+  const QUIZ = [
+    { q: "Informatika paling tepat dipahami sebagai...", opts: ["Ilmu yang hanya mengajarkan cara mengetik dan mengoperasikan komputer", "Cara berpikir komputasional dan konsep ilmu komputer untuk menyelesaikan masalah", "Mata pelajaran tentang sejarah penemuan komputer", "Kegiatan bermain gim di komputer"], correct: 1 },
+    { q: "Elemen Informatika yang mempelajari cara mengolah, meringkas, dan memvisualisasikan data disebut...", opts: ["Sistem Komputer", "Jaringan Komputer dan Internet", "Analisis Data", "Dampak Sosial Informatika"], correct: 2 },
+    { q: "Pendekatan belajar Informatika tanpa menggunakan komputer disebut...", opts: ["Plugged", "Unplugged", "Online", "Digital"], correct: 1 },
+    { q: "Memecah masalah besar menjadi bagian-bagian kecil yang lebih sederhana adalah pengertian dari...", opts: ["Abstraksi", "Algoritma", "Dekomposisi", "Pengenalan Pola"], correct: 2 },
+    { q: "Berapa jumlah dimensi dalam Profil Pelajar Pancasila?", opts: ["4", "5", "6", "8"], correct: 2 },
+    { q: "Manfaat utama menyusun rencana belajar di awal tahun ajaran adalah...", opts: ["Membuat belajar lebih terarah dan fokus mencapai target", "Menghindari semua tugas sekolah", "Menjamin nilai ulangan pasti sempurna", "Menggantikan peran guru di kelas"], correct: 0 },
+  ];
+
+  let quizAnswers = {};
+
+  function renderQuiz() {
+    const wrap = document.getElementById("quiz-list");
+    wrap.innerHTML = QUIZ.map((item, qi) => `
+      <div>
+        <p class="mb-3 text-sm font-semibold">${qi + 1}. ${item.q}</p>
+        <div class="flex flex-col gap-2" data-quiz-group="${qi}">
+          ${item.opts.map((opt, oi) => `
+            <button class="quiz-opt" data-q="${qi}" data-o="${oi}">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current text-[10px] font-bold">${String.fromCharCode(65 + oi)}</span>
+              <span>${opt}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+
+    wrap.querySelectorAll(".quiz-opt").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.classList.contains("locked")) return;
+        const qi = btn.dataset.q;
+        quizAnswers[qi] = +btn.dataset.o;
+        wrap.querySelectorAll(`[data-q="${qi}"]`).forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+      });
+    });
+  }
+
+  function submitQuiz() {
+    if (Object.keys(quizAnswers).length < QUIZ.length) {
+      showToast("Jawab semua pertanyaan dulu, yuk!");
+      return;
+    }
+    let score = 0;
+    QUIZ.forEach((item, qi) => {
+      const buttons = document.querySelectorAll(`[data-q="${qi}"]`);
+      buttons.forEach((b) => {
+        b.classList.add("locked");
+        const oi = +b.dataset.o;
+        if (oi === item.correct) b.classList.add("correct");
+        else if (oi === quizAnswers[qi]) b.classList.add("wrong");
+      });
+      if (quizAnswers[qi] === item.correct) score++;
+    });
+
+    const percent = Math.round((score / QUIZ.length) * 100);
+    let msg = "Terus berlatih, ya! 💪";
+    if (percent >= 80) msg = "Luar biasa! Kamu sudah sangat memahami Bab 1. 🎉";
+    else if (percent >= 60) msg = "Bagus! Sedikit lagi menuju pemahaman penuh. 👍";
+
+    const result = document.getElementById("quiz-result");
+    result.classList.remove("hidden");
+    result.className = "mt-6 rounded-2xl p-5 text-center " + (percent >= 60 ? "" : "");
+    result.style.background = "var(--surface)";
+    result.style.border = "1px solid var(--border)";
+    result.innerHTML = `
+      <p class="text-3xl font-extrabold text-gradient">${score}/${QUIZ.length}</p>
+      <p class="mt-1 text-sm text-[var(--text-soft)]">Skor kamu: ${percent}%</p>
+      <p class="mt-2 text-sm font-medium">${msg}</p>
+    `;
+
+    document.getElementById("quiz-submit").classList.add("hidden");
+    document.getElementById("quiz-reset").classList.remove("hidden");
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function resetQuiz() {
+    quizAnswers = {};
+    document.getElementById("quiz-result").classList.add("hidden");
+    document.getElementById("quiz-submit").classList.remove("hidden");
+    document.getElementById("quiz-reset").classList.add("hidden");
+    renderQuiz();
+    if (window.lucide) lucide.createIcons();
+  }
+
+  /* ---------- Tabs & progres materi ---------- */
+  function setActiveTab(id) {
+    document.querySelectorAll(".section-panel").forEach((s) => s.classList.toggle("active", s.id === "section-" + id));
+    document.querySelectorAll(".tab-pill").forEach((t) => t.classList.toggle("active", t.dataset.tab === String(id)));
+    window.scrollTo({ top: document.getElementById("tab-bar").offsetTop - 90, behavior: "smooth" });
+  }
+
+  function updateMateriProgress() {
+    const done = loadJSON(STORE_KEY, {});
+    const total = 6;
+    const count = [1, 2, 3, 4, 5, 6].filter((i) => done[i]).length;
+    document.getElementById("materi-progress-label").textContent = `${count} / ${total}`;
+    document.getElementById("materi-progress-fill").style.width = `${(count / total) * 100}%`;
+    [1, 2, 3, 4, 5, 6].forEach((i) => {
+      const dot = document.querySelector(`[data-dot="${i}"]`);
+      if (dot) dot.classList.toggle("hidden", !done[i]);
+      const btn = document.querySelector(`.mark-done[data-section="${i}"]`);
+      if (btn) {
+        btn.querySelector("span").textContent = done[i] ? "Sudah Dipelajari" : "Tandai Selesai";
+        btn.querySelector("i").setAttribute("data-lucide", done[i] ? "check-check" : "check");
+      }
+    });
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function init() {
+    // Tampilkan tab pertama & jalankan animasi/ikon DULUAN, supaya kalau ada
+    // satu fungsi render di bawah gagal (mis. data telat termuat), halaman
+    // tidak ikut kosong sama sekali.
+    setActiveTab(1);
+    if (window.lucide) lucide.createIcons();
+    if (window.AOS) AOS.init({ duration: 600, once: true, offset: 40 });
+
+    const steps = [
+      ["renderElemen", () => renderElemen()],
+      ["renderApproach", () => renderApproach("unplugged")],
+      ["renderCTTerms", () => renderCTTerms()],
+      ["renderReflect", () => renderReflect()],
+      ["renderStrategi", () => renderStrategi()],
+      ["renderPancasila", () => renderPancasila()],
+      ["renderTimeline", () => renderTimeline()],
+      ["renderQuiz", () => renderQuiz()],
+      ["updateMateriProgress", () => updateMateriProgress()],
+    ];
+    steps.forEach(([name, fn]) => {
+      try {
+        fn();
+      } catch (err) {
+        console.error(`[Bab 1] Gagal menjalankan ${name}():`, err);
+      }
+    });
+
+    document.querySelectorAll(".tab-pill[data-tab]").forEach((t) => t.addEventListener("click", () => setActiveTab(t.dataset.tab)));
+    document.querySelectorAll(".next-section").forEach((b) => b.addEventListener("click", () => setActiveTab(b.dataset.next)));
+    document.querySelectorAll(".approach-btn").forEach((b) => b.addEventListener("click", () => renderApproach(b.dataset.approach)));
+
+    document.querySelectorAll(".mark-done").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const s = btn.dataset.section;
+        const done = loadJSON(STORE_KEY, {});
+        done[s] = !done[s];
+        saveJSON(STORE_KEY, done);
+        updateMateriProgress();
+        showToast(done[s] ? "Materi ditandai selesai ✅" : "Tanda selesai dihapus");
+      });
+    });
+
+    document.getElementById("quiz-submit").addEventListener("click", submitQuiz);
+    document.getElementById("quiz-reset").addEventListener("click", resetQuiz);
+
+    if (window.lucide) lucide.createIcons();
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+import os
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+
+# Harus sinkron dengan assets/js/data.js (slug, judul, jumlah pertemuan).
+# Bab 1 SENGAJA TIDAK di-generate ulang oleh script ini: bab1.html sudah
+# berisi materi lengkap buatan manual, bukan placeholder. Kalau generator
+# dijalankan, bab1 dilewati supaya isinya tidak tertimpa.
+BABS = [
+    {"id": 1, "slug": "bab1", "judul": "Informatika dan Pembelajarannya", "pertemuan": 4},
+    {"id": 2, "slug": "bab2", "judul": "Berpikir Komputasional", "pertemuan": 6},
+    {"id": 3, "slug": "bab3", "judul": "Teknologi Informasi dan Komunikasi", "pertemuan": 4},
+    {"id": 4, "slug": "bab4", "judul": "Sistem Komputer", "pertemuan": 5},
+    {"id": 5, "slug": "bab5", "judul": "Jaringan Komputer dan Internet", "pertemuan": 5},
+    {"id": 6, "slug": "bab6", "judul": "Analisis Data", "pertemuan": 5},
+    {"id": 7, "slug": "bab7", "judul": "Algoritma dan Pemrograman", "pertemuan": 6},
+    {"id": 8, "slug": "bab8", "judul": "Dampak Sosial Informatika", "pertemuan": 4},
+    {"id": 9, "slug": "bab9", "judul": "Praktik Lintas Bidang", "pertemuan": 4},
+]
+
+# Semua file (index.html, babN.html, assets/) hidup satu level (root),
+# jadi semua path aset di bawah ini TIDAK memakai "../" sama sekali.
+BAB_TEMPLATE = """<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bab {id}: {judul}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {{ darkMode: "class", theme: {{ extend: {{ fontFamily: {{ poppins: ["Poppins", "sans-serif"] }} }} }} }};
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+
+<link rel="stylesheet" href="assets/css/style.css" />
+
+<script>
+  (function () {{
+    const saved = localStorage.getItem("informatika8_theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (saved === "dark" || (!saved && prefersDark)) document.documentElement.classList.add("dark");
+  }})();
+  const BAB_ID = {id};
+</script>
+</head>
+<body class="font-poppins antialiased">
+
+  <header class="sticky top-0 z-50 border-b border-white/10">
+    <div class="glass mx-auto flex max-w-4xl items-center justify-between rounded-b-2xl px-5 py-3 md:px-8">
+      <a href="index.html" class="flex items-center gap-2 text-sm font-semibold">
+        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+          <i data-lucide="graduation-cap" class="h-5 w-5"></i>
+        </div>
+        Informatika Kelas VIII
+      </a>
+      <button onclick="toggleTheme()" aria-label="Ganti mode gelap/terang" class="glass flex h-10 w-10 items-center justify-center rounded-full transition hover:scale-105">
+        <i data-theme-icon data-lucide="moon" class="h-5 w-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-5 pb-24 pt-12 md:px-8">
+
+    <!-- ==== Header Bab ==== -->
+    <section class="glass-strong rounded-3xl p-6 md:p-10" data-aos="fade-up">
+      <div class="flex items-start gap-5">
+        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+          <i id="bab-icon" class="h-7 w-7"></i>
+        </div>
+        <div class="min-w-0 flex-1">
+          <p id="bab-eyebrow" class="text-xs font-semibold uppercase tracking-wider text-[var(--text-soft)]"></p>
+          <h1 id="bab-title" class="mt-1 text-2xl font-bold md:text-3xl"></h1>
+          <span id="bab-badge" class="badge mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1"></span>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <p class="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+          <i data-lucide="target" class="h-3.5 w-3.5"></i>Capaian Pembelajaran
+        </p>
+        <p id="bab-cp" class="text-sm leading-relaxed text-[var(--text-soft)] md:text-base"></p>
+      </div>
+
+      <div class="mt-6">
+        <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+          <i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Sekilas Materi
+        </p>
+        <div id="bab-materi" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div class="mt-8">
+        <div class="flex items-center justify-between text-xs font-medium text-[var(--text-soft)]">
+          <span class="flex items-center gap-1.5"><i data-lucide="flag" class="h-3.5 w-3.5"></i>Progres Belajar</span>
+          <span id="bab-progress-label"></span>
+        </div>
+        <div class="mt-2 progress-track">
+          <div id="bab-progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==== Pertemuan sebagai tab, semua di satu halaman ==== -->
+    <section class="mt-10">
+      <h2 class="mb-4 flex items-center gap-2 text-lg font-bold md:text-xl">
+        <i data-lucide="calendar-clock" class="h-5 w-5 text-[var(--blue-600)]"></i>
+        Daftar Pertemuan
+      </h2>
+      <div id="tab-bar" class="scrollbar-thin flex gap-2 overflow-x-auto pb-2"></div>
+      <div id="panels-wrap"></div>
+    </section>
+
+    <!-- ==== Navigasi ==== -->
+    <nav id="bab-nav" class="mt-12 flex items-center justify-between gap-3"></nav>
+  </main>
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/progress.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="assets/js/babpage.js"></script>
+</body>
+</html>
+"""
+
+for bab in BABS:
+    if bab["slug"] == "bab1":
+        continue  # lihat catatan di atas: bab1.html tidak digenerate ulang
+    out_path = os.path.join(BASE, f"{bab['slug']}.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(BAB_TEMPLATE.format(id=bab["id"], judul=bab["judul"]))
+
+print("Generated", len(BABS) - 1, "flat bab pages at project root (bab1.html dilewati).")
