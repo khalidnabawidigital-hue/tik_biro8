@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bab 2: Berpikir Komputasional</title>
+<title>Bab 2: Berpikir Komputasional — Materi Lengkap</title>
+<meta name="description" content="Materi interaktif lengkap Bab 2 — Berpikir Komputasional (Fungsi, Himpunan, Sistem Bilangan, Algoritma, Struktur Data), Informatika Kelas VIII" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -24,83 +25,985 @@
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (saved === "dark" || (!saved && prefersDark)) document.documentElement.classList.add("dark");
   })();
-  const BAB_ID = 2;
 </script>
+
+<style>
+  /* ---------- Flip cards ---------- */
+  .flip-card { perspective: 1200px; height: 100%; cursor: pointer; }
+  .flip-inner {
+    position: relative; width: 100%; height: 100%; min-height: 168px;
+    transition: transform .6s cubic-bezier(.2,.9,.25,1); transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    border-radius: 1rem; padding: 1.1rem; display: flex; flex-direction: column;
+  }
+  .flip-front { background: var(--surface); border: 1px solid var(--border); }
+  .flip-back {
+    transform: rotateY(180deg); color: #fff; justify-content: center;
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-600) 55%, var(--sky-400));
+  }
+
+  /* ---------- Sliders ---------- */
+  input[type="range"] { accent-color: var(--blue-600); }
+
+  /* ---------- Quiz options ---------- */
+  .quiz-opt {
+    display: flex; align-items: center; gap: .6rem; width: 100%; text-align: left;
+    border: 1px solid var(--border); background: var(--surface); border-radius: .9rem;
+    padding: .7rem .9rem; font-size: .85rem; transition: all .2s ease; cursor: pointer;
+  }
+  .quiz-opt:hover { transform: translateX(3px); }
+  .quiz-opt.selected { border-color: var(--blue-600); background: rgba(47,107,240,.12); }
+  .quiz-opt.correct { border-color: var(--success); background: var(--success-bg); color: #15803d; }
+  html.dark .quiz-opt.correct { color: var(--success); }
+  .quiz-opt.wrong { border-color: #ef4444; background: rgba(239,68,68,.14); color: #b91c1c; }
+  html.dark .quiz-opt.wrong { color: #f87171; }
+  .quiz-opt[disabled], .quiz-opt.locked { cursor: default; }
+
+  .term-btn.active { color: var(--blue-600); background: rgba(47,107,240,.14); border-color: transparent; }
+  html.dark .term-btn.active { color: var(--sky-300); background: rgba(87,199,255,.14); }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+    opacity: 0; pointer-events: none; transition: all .3s ease; z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---------- Bit toggler (sistem bilangan) ---------- */
+  .bit-box {
+    display: flex; flex-direction: column; align-items: center; gap: .35rem;
+    width: 52px; cursor: pointer; user-select: none;
+  }
+  .bit-val {
+    display: flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: .75rem; font-weight: 700; font-size: .95rem;
+    border: 1.5px solid var(--border); background: var(--surface); transition: all .2s ease;
+  }
+  .bit-box.on .bit-val {
+    color: #fff; border-color: transparent;
+    background: linear-gradient(135deg, var(--blue-700), var(--blue-600) 55%, var(--sky-400));
+    transform: translateY(-2px);
+  }
+  .bit-place { font-size: 10px; color: var(--text-soft); }
+
+  /* ---------- Stack / Queue visual ---------- */
+  .ds-slot {
+    display: flex; align-items: center; justify-content: center;
+    min-width: 44px; height: 40px; border-radius: .6rem; font-size: .8rem; font-weight: 600;
+    border: 1.5px solid var(--border); background: var(--surface); padding: 0 .5rem;
+  }
+  .ds-slot.top {
+    border-color: var(--blue-600); color: var(--blue-600); background: rgba(47,107,240,.1);
+  }
+
+  /* ---------- Venn ---------- */
+  .venn-circle { transition: opacity .25s ease; }
+</style>
 </head>
 <body class="font-poppins antialiased">
 
   <header class="sticky top-0 z-50 border-b border-white/10">
-    <div class="glass mx-auto flex max-w-4xl items-center justify-between rounded-b-2xl px-5 py-3 md:px-8">
-      <a href="index.html" class="flex items-center gap-2 text-sm font-semibold">
-        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
-          <i data-lucide="graduation-cap" class="h-5 w-5"></i>
-        </div>
-        Informatika Kelas VIII
+    <div class="glass mx-auto flex max-w-5xl items-center justify-between rounded-b-2xl px-5 py-3 md:px-8">
+      <a href="index.html" class="flex min-w-0 items-center gap-2 text-sm font-semibold">
+        <i data-lucide="arrow-left" class="h-4 w-4 shrink-0"></i>
+        <span class="truncate">Bab 2: Berpikir Komputasional</span>
       </a>
-      <button onclick="toggleTheme()" aria-label="Ganti mode gelap/terang" class="glass flex h-10 w-10 items-center justify-center rounded-full transition hover:scale-105">
+      <button onclick="toggleTheme()" aria-label="Ganti mode gelap/terang" class="glass flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:scale-105">
         <i data-theme-icon data-lucide="moon" class="h-5 w-5"></i>
       </button>
     </div>
   </header>
 
-  <main class="mx-auto max-w-4xl px-5 pb-24 pt-12 md:px-8">
+  <main class="mx-auto max-w-5xl px-5 pb-24 pt-10 md:px-8">
 
-    <!-- ==== Header Bab ==== -->
+    <!-- ==== Hero ==== -->
     <section class="glass-strong rounded-3xl p-6 md:p-10" data-aos="fade-up">
       <div class="flex items-start gap-5">
         <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
-          <i id="bab-icon" class="h-7 w-7"></i>
+          <i data-lucide="brain-cog" class="h-7 w-7"></i>
         </div>
         <div class="min-w-0 flex-1">
-          <p id="bab-eyebrow" class="text-xs font-semibold uppercase tracking-wider text-[var(--text-soft)]"></p>
-          <h1 id="bab-title" class="mt-1 text-2xl font-bold md:text-3xl"></h1>
-          <span id="bab-badge" class="badge mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1"></span>
+          <p class="text-xs font-semibold uppercase tracking-wider text-[var(--text-soft)]">Bab 2 • Materi Lengkap Interaktif</p>
+          <h1 class="mt-1 text-2xl font-bold md:text-3xl">Berpikir Komputasional</h1>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+            Peserta didik mampu menerapkan berpikir komputasional untuk menyelesaikan masalah melalui
+            <strong class="text-[var(--text)]">fungsi</strong>, <strong class="text-[var(--text)]">himpunan</strong>,
+            <strong class="text-[var(--text)]">sistem bilangan</strong>, <strong class="text-[var(--text)]">algoritma</strong>,
+            dan <strong class="text-[var(--text)]">struktur data</strong>.
+          </p>
         </div>
       </div>
 
-      <div class="mt-8">
-        <p class="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
-          <i data-lucide="target" class="h-3.5 w-3.5"></i>Capaian Pembelajaran
-        </p>
-        <p id="bab-cp" class="text-sm leading-relaxed text-[var(--text-soft)] md:text-base"></p>
-      </div>
-
-      <div class="mt-6">
-        <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
-          <i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Sekilas Materi
-        </p>
-        <div id="bab-materi" class="flex flex-wrap gap-2"></div>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Apa itu Berpikir Komputasional</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Fungsi</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Himpunan</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Sistem Bilangan</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Algoritma</span>
+        <span class="badge glass inline-flex items-center gap-1.5 rounded-full px-3 py-1"><i data-lucide="list-checks" class="h-3.5 w-3.5"></i>Struktur Data</span>
       </div>
 
       <div class="mt-8">
         <div class="flex items-center justify-between text-xs font-medium text-[var(--text-soft)]">
-          <span class="flex items-center gap-1.5"><i data-lucide="flag" class="h-3.5 w-3.5"></i>Progres Belajar</span>
-          <span id="bab-progress-label"></span>
+          <span class="flex items-center gap-1.5"><i data-lucide="flag" class="h-3.5 w-3.5"></i>Progres Materi Dipelajari</span>
+          <span id="materi-progress-label">0 / 6</span>
         </div>
         <div class="mt-2 progress-track">
-          <div id="bab-progress-fill" class="progress-fill"></div>
+          <div id="materi-progress-fill" class="progress-fill"></div>
         </div>
       </div>
     </section>
 
-    <!-- ==== Pertemuan sebagai tab, semua di satu halaman ==== -->
-    <section class="mt-10">
-      <h2 class="mb-4 flex items-center gap-2 text-lg font-bold md:text-xl">
-        <i data-lucide="calendar-clock" class="h-5 w-5 text-[var(--blue-600)]"></i>
-        Daftar Pertemuan
-      </h2>
-      <div id="tab-bar" class="scrollbar-thin flex gap-2 overflow-x-auto pb-2"></div>
-      <div id="panels-wrap"></div>
+    <!-- ==== Tabs ==== -->
+    <div class="scrollbar-thin sticky top-[70px] z-40 mt-8 flex gap-2 overflow-x-auto pb-2" id="tab-bar" data-aos="fade-up">
+      <button class="tab-pill" data-tab="1"><i data-lucide="lightbulb" class="h-3.5 w-3.5"></i>1. Apa itu BK<span class="done-dot hidden" data-dot="1"></span></button>
+      <button class="tab-pill" data-tab="2"><i data-lucide="function-square" class="h-3.5 w-3.5"></i>2. Fungsi<span class="done-dot hidden" data-dot="2"></span></button>
+      <button class="tab-pill" data-tab="3"><i data-lucide="circle-dot" class="h-3.5 w-3.5"></i>3. Himpunan<span class="done-dot hidden" data-dot="3"></span></button>
+      <button class="tab-pill" data-tab="4"><i data-lucide="binary" class="h-3.5 w-3.5"></i>4. Sistem Bilangan<span class="done-dot hidden" data-dot="4"></span></button>
+      <button class="tab-pill" data-tab="5"><i data-lucide="workflow" class="h-3.5 w-3.5"></i>5. Algoritma<span class="done-dot hidden" data-dot="5"></span></button>
+      <button class="tab-pill" data-tab="6"><i data-lucide="layers" class="h-3.5 w-3.5"></i>6. Struktur Data<span class="done-dot hidden" data-dot="6"></span></button>
+      <button class="tab-pill" data-tab="7"><i data-lucide="pencil-line" class="h-3.5 w-3.5"></i>Uji Pemahaman</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 1 — APA ITU BERPIKIR KOMPUTASIONAL -->
+    <!-- ============================================================ -->
+    <section id="section-1" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="lightbulb" class="h-5 w-5 text-[var(--blue-600)]"></i>Apa itu Berpikir Komputasional?</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="1">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          <strong class="text-[var(--text)]">Berpikir komputasional (computational thinking)</strong> adalah cara
+          berpikir sistematis untuk menyelesaikan masalah, baik masalah sehari-hari maupun masalah yang akan
+          diselesaikan dengan bantuan komputer. Cara berpikir ini tidak hanya dipakai oleh programmer, tetapi juga
+          berguna dalam banyak bidang kehidupan — mulai dari menyusun jadwal harian hingga merencanakan perjalanan.
+        </p>
+
+        <p class="mt-3 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Pada Bab 2 ini, berpikir komputasional akan dipraktikkan lewat lima topik: <strong class="text-[var(--text)]">fungsi</strong>
+          (mengubah masukan menjadi keluaran), <strong class="text-[var(--text)]">himpunan</strong> (mengelompokkan objek),
+          <strong class="text-[var(--text)]">sistem bilangan</strong> (bagaimana komputer merepresentasikan angka),
+          <strong class="text-[var(--text)]">algoritma</strong> (menyusun langkah penyelesaian), dan
+          <strong class="text-[var(--text)]">struktur data</strong> (mengatur dan menyimpan data). Sebelum masuk ke topik-topik
+          tersebut, mari mengingat kembali empat fondasi berpikir komputasional berikut ini.
+        </p>
+
+        <div id="fondasi-grid" class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4"></div>
+
+        <div class="mt-8 rounded-2xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--text-soft)]">
+          <p class="flex items-center gap-1.5 font-semibold text-[var(--text)]"><i data-lucide="info" class="h-4 w-4 text-[var(--blue-600)]"></i>Intinya</p>
+          Fungsi, himpunan, sistem bilangan, algoritma, dan struktur data adalah "alat berpikir" yang membantu kita
+          mengubah masalah yang rumit menjadi langkah-langkah yang jelas, terstruktur, dan bisa dikerjakan — oleh
+          manusia maupun oleh komputer.
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="2">
+          Lanjut: Fungsi <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
     </section>
 
-    <!-- ==== Navigasi ==== -->
-    <nav id="bab-nav" class="mt-12 flex items-center justify-between gap-3"></nav>
+    <!-- ============================================================ -->
+    <!-- SECTION 2 — FUNGSI -->
+    <!-- ============================================================ -->
+    <section id="section-2" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="function-square" class="h-5 w-5 text-[var(--blue-600)]"></i>Fungsi</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="2">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          <strong class="text-[var(--text)]">Fungsi</strong> dapat dibayangkan sebagai sebuah "mesin": setiap kali
+          kita memasukkan sesuatu (input/masukan), mesin akan mengolahnya dengan aturan tertentu dan menghasilkan
+          keluaran (output). Dalam Informatika, fungsi banyak dipakai untuk membungkus langkah-langkah yang sering
+          dipakai berulang kali, misalnya fungsi untuk menghitung diskon harga atau mengubah suhu Celsius ke Fahrenheit.
+        </p>
+
+        <div class="mt-5 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-sm text-[var(--text-soft)]">
+          <p class="font-semibold text-[var(--text)]">Istilah penting:</p>
+          <ul class="mt-2 list-disc space-y-1 pl-5">
+            <li><strong class="text-[var(--text)]">Domain</strong> — himpunan semua kemungkinan masukan (input) yang boleh dipakai.</li>
+            <li><strong class="text-[var(--text)]">Kodomain</strong> — himpunan tempat keluaran (output) berada.</li>
+            <li><strong class="text-[var(--text)]">Range</strong> — himpunan keluaran yang benar-benar dihasilkan oleh fungsi.</li>
+          </ul>
+        </div>
+
+        <div class="mt-8">
+          <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+            <i data-lucide="cog" class="h-3.5 w-3.5"></i>Coba Sendiri: Mesin Fungsi
+          </p>
+          <div class="inline-flex flex-wrap gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] p-1 text-xs font-semibold" id="fungsi-picker"></div>
+
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            <label class="text-sm font-medium">Masukan (x):</label>
+            <input id="fungsi-input" type="number" value="4" class="w-24 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2.5 text-sm outline-none focus:border-[var(--blue-600)]" />
+            <button id="fungsi-hitung" class="btn-gradient inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-semibold">
+              <i data-lucide="play" class="h-3.5 w-3.5"></i>Hitung
+            </button>
+          </div>
+
+          <div id="fungsi-hasil" class="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-relaxed text-[var(--text-soft)]">
+            Pilih aturan fungsi, isi nilai masukan, lalu klik <em>Hitung</em> untuk melihat hasilnya.
+          </div>
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="3">
+          Lanjut: Himpunan <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 3 — HIMPUNAN -->
+    <!-- ============================================================ -->
+    <section id="section-3" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="circle-dot" class="h-5 w-5 text-[var(--blue-600)]"></i>Himpunan</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="3">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          <strong class="text-[var(--text)]">Himpunan</strong> adalah kumpulan objek (disebut anggota) yang
+          didefinisikan dengan jelas, sehingga kita bisa memastikan suatu objek termasuk anggota himpunan itu atau
+          tidak. Dalam Informatika, konsep himpunan dipakai misalnya untuk mengelompokkan data, menyaring (filter)
+          informasi, atau membandingkan dua kumpulan data.
+        </p>
+
+        <div class="mt-6 grid gap-3 md:grid-cols-2">
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-sm">
+            <p class="font-semibold text-[var(--text)]">Himpunan A (Bilangan Genap 1–10)</p>
+            <p class="mt-1 text-[var(--text-soft)]">A = {2, 4, 6, 8, 10}</p>
+          </div>
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-sm">
+            <p class="font-semibold text-[var(--text)]">Himpunan B (Kelipatan 3, 1–10)</p>
+            <p class="mt-1 text-[var(--text-soft)]">B = {3, 6, 9}</p>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+            <i data-lucide="shapes" class="h-3.5 w-3.5"></i>Coba Sendiri: Operasi Himpunan
+          </p>
+          <div class="inline-flex flex-wrap gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] p-1 text-xs font-semibold" id="himpunan-picker"></div>
+          <div id="himpunan-hasil" class="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-relaxed text-[var(--text-soft)]">
+            Pilih salah satu operasi himpunan di atas untuk melihat hasilnya.
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+            <i data-lucide="book-open" class="h-3.5 w-3.5"></i>Istilah Operasi Himpunan
+          </p>
+          <div id="himpunan-terms" class="flex flex-wrap gap-2"></div>
+          <div id="himpunan-detail" class="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-relaxed text-[var(--text-soft)]">
+            Klik salah satu istilah di atas untuk melihat penjelasannya.
+          </div>
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="4">
+          Lanjut: Sistem Bilangan <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 4 — SISTEM BILANGAN -->
+    <!-- ============================================================ -->
+    <section id="section-4" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="binary" class="h-5 w-5 text-[var(--blue-600)]"></i>Sistem Bilangan</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="4">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Manusia sehari-hari menghitung menggunakan <strong class="text-[var(--text)]">sistem bilangan desimal</strong>
+          (basis 10), yaitu memakai sepuluh angka: 0 sampai 9. Namun, komputer bekerja dengan komponen elektronik yang
+          hanya mengenal dua kondisi — <em>ada arus</em> dan <em>tidak ada arus</em>. Karena itu, komputer
+          merepresentasikan semua data menggunakan <strong class="text-[var(--text)]">sistem bilangan biner</strong>
+          (basis 2), yang hanya memakai dua angka: 0 dan 1.
+        </p>
+
+        <p class="mt-3 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          Setiap posisi digit biner disebut <strong class="text-[var(--text)]">bit</strong>, dan memiliki nilai
+          tempat berupa pangkat dari 2 (…, 32, 16, 8, 4, 2, 1). Untuk mengubah bilangan biner menjadi desimal,
+          jumlahkan nilai tempat dari setiap bit yang bernilai 1.
+        </p>
+
+        <div class="mt-8">
+          <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+            <i data-lucide="toggle-left" class="h-3.5 w-3.5"></i>Coba Sendiri: Konverter Biner ↔ Desimal
+          </p>
+          <p class="mb-4 text-xs text-[var(--text-soft)]">Klik kotak bit untuk mengaktifkan/menonaktifkannya (1/0), lalu lihat hasil desimalnya.</p>
+          <div id="bit-row" class="flex flex-wrap gap-2.5"></div>
+          <div class="mt-5 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 text-center">
+            <p class="text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">Nilai Desimal</p>
+            <p id="bit-decimal" class="mt-1 text-3xl font-extrabold text-gradient">0</p>
+            <p id="bit-binary" class="mt-1 font-mono text-sm text-[var(--text-soft)]">0000 0000</p>
+          </div>
+        </div>
+
+        <div class="mt-8 grid gap-3 sm:grid-cols-3">
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-center text-sm">
+            <p class="font-mono text-lg font-bold text-[var(--blue-600)]">101</p>
+            <p class="mt-1 text-xs text-[var(--text-soft)]">biner = 5 desimal</p>
+          </div>
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-center text-sm">
+            <p class="font-mono text-lg font-bold text-[var(--blue-600)]">1010</p>
+            <p class="mt-1 text-xs text-[var(--text-soft)]">biner = 10 desimal</p>
+          </div>
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-center text-sm">
+            <p class="font-mono text-lg font-bold text-[var(--blue-600)]">1111</p>
+            <p class="mt-1 text-xs text-[var(--text-soft)]">biner = 15 desimal</p>
+          </div>
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="5">
+          Lanjut: Algoritma <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 5 — ALGORITMA -->
+    <!-- ============================================================ -->
+    <section id="section-5" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="workflow" class="h-5 w-5 text-[var(--blue-600)]"></i>Algoritma</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="5">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          <strong class="text-[var(--text)]">Algoritma</strong> adalah urutan langkah-langkah logis dan sistematis
+          untuk menyelesaikan suatu masalah. Algoritma yang baik memiliki ciri: <strong class="text-[var(--text)]">jelas</strong>
+          (tidak membingungkan), <strong class="text-[var(--text)]">terurut</strong> (langkahnya berurutan),
+          <strong class="text-[var(--text)]">terbatas</strong> (memiliki akhir/berhenti), dan
+          <strong class="text-[var(--text)]">efektif</strong> (benar-benar menyelesaikan masalah).
+        </p>
+
+        <div class="mt-5 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-sm text-[var(--text-soft)]">
+          <p class="font-semibold text-[var(--text)]">Contoh: Algoritma Membuat Teh Manis</p>
+          <ol class="mt-2 list-decimal space-y-1 pl-5">
+            <li>Mulai</li>
+            <li>Didihkan air</li>
+            <li>Masukkan teh celup ke dalam gelas</li>
+            <li>Tuangkan air panas ke dalam gelas</li>
+            <li>Tambahkan gula secukupnya</li>
+            <li>Aduk hingga rata</li>
+            <li>Selesai</li>
+          </ol>
+        </div>
+
+        <div class="mt-8">
+          <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+            <i data-lucide="shapes" class="h-3.5 w-3.5"></i>Simbol Flowchart (Diagram Alir)
+          </p>
+          <div id="flowchart-grid" class="grid grid-cols-2 gap-3 md:grid-cols-4"></div>
+        </div>
+
+        <div class="mt-8">
+          <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+            <i data-lucide="search-code" class="h-3.5 w-3.5"></i>Coba Sendiri: Tebak Hasil Algoritma
+          </p>
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-sm text-[var(--text-soft)]">
+            <p class="font-mono leading-relaxed">
+              1. total ← 0<br />
+              2. untuk i dari 1 sampai 4, ulangi:<br />
+              &nbsp;&nbsp;&nbsp;total ← total + i<br />
+              3. tampilkan total
+            </p>
+          </div>
+          <p class="mt-4 text-sm font-medium">Berapa nilai <em>total</em> yang akan ditampilkan?</p>
+          <div id="algo-trace" class="mt-3 flex flex-col gap-2"></div>
+          <div id="algo-trace-result" class="mt-3 hidden rounded-xl p-3 text-sm font-medium"></div>
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="6">
+          Lanjut: Struktur Data <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 6 — STRUKTUR DATA -->
+    <!-- ============================================================ -->
+    <section id="section-6" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="layers" class="h-5 w-5 text-[var(--blue-600)]"></i>Struktur Data</h2>
+          <button class="mark-done btn-gradient flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold" data-section="6">
+            <i data-lucide="check" class="h-3.5 w-3.5"></i><span>Tandai Selesai</span>
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
+          <strong class="text-[var(--text)]">Struktur data</strong> adalah cara mengatur dan menyimpan kumpulan data
+          agar mudah diakses dan diolah. Pemilihan struktur data yang tepat membuat penyelesaian masalah menjadi
+          lebih efisien. Klik kartu di bawah untuk mengenal beberapa struktur data dasar.
+        </p>
+
+        <div id="struktur-grid" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
+
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          <div>
+            <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+              <i data-lucide="layers-2" class="h-3.5 w-3.5"></i>Simulasi Stack (Tumpukan) — LIFO
+            </p>
+            <p class="mb-3 text-xs text-[var(--text-soft)]">Last In, First Out — data terakhir masuk, keluar pertama. Seperti tumpukan piring.</p>
+            <div class="flex flex-wrap items-center gap-2">
+              <button id="stack-push" class="btn-gradient inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold"><i data-lucide="arrow-down" class="h-3.5 w-3.5"></i>Push</button>
+              <button id="stack-pop" class="glass inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold"><i data-lucide="arrow-up" class="h-3.5 w-3.5"></i>Pop</button>
+            </div>
+            <div id="stack-visual" class="mt-4 flex min-h-[60px] flex-col-reverse gap-1.5 rounded-2xl border border-dashed border-[var(--border)] p-3"></div>
+          </div>
+
+          <div>
+            <p class="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft)]">
+              <i data-lucide="list-ordered" class="h-3.5 w-3.5"></i>Simulasi Queue (Antrean) — FIFO
+            </p>
+            <p class="mb-3 text-xs text-[var(--text-soft)]">First In, First Out — data pertama masuk, keluar pertama. Seperti antre di kasir.</p>
+            <div class="flex flex-wrap items-center gap-2">
+              <button id="queue-enqueue" class="btn-gradient inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold"><i data-lucide="log-in" class="h-3.5 w-3.5"></i>Enqueue</button>
+              <button id="queue-dequeue" class="glass inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold"><i data-lucide="log-out" class="h-3.5 w-3.5"></i>Dequeue</button>
+            </div>
+            <div id="queue-visual" class="mt-4 flex min-h-[60px] flex-wrap items-center gap-1.5 rounded-2xl border border-dashed border-[var(--border)] p-3"></div>
+          </div>
+        </div>
+
+        <button class="next-section btn-gradient mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold" data-next="7">
+          Lanjut: Uji Pemahaman <i data-lucide="arrow-right" class="h-4 w-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 7 — QUIZ -->
+    <!-- ============================================================ -->
+    <section id="section-7" class="section-panel mt-6" data-aos="fade-up">
+      <div class="glass-strong rounded-3xl p-6 md:p-8">
+        <h2 class="flex items-center gap-2 text-lg font-bold md:text-xl"><i data-lucide="pencil-line" class="h-5 w-5 text-[var(--blue-600)]"></i>Uji Pemahaman Bab 2</h2>
+        <p class="mt-2 text-sm text-[var(--text-soft)]">Jawab 6 pertanyaan berikut untuk menguji pemahamanmu tentang Bab 2.</p>
+
+        <div id="quiz-list" class="mt-6 flex flex-col gap-6"></div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <button id="quiz-submit" class="btn-gradient inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold">
+            <i data-lucide="check-check" class="h-4 w-4"></i>Cek Jawaban
+          </button>
+          <button id="quiz-reset" class="glass hidden inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold">
+            <i data-lucide="rotate-ccw" class="h-4 w-4"></i>Ulangi Kuis
+          </button>
+        </div>
+
+        <div id="quiz-result" class="mt-6 hidden rounded-2xl p-5 text-center"></div>
+      </div>
+    </section>
+
+    <!-- ==== Navigasi bawah ==== -->
+    <nav class="mt-12 flex items-center justify-between gap-3">
+      <a href="bab1.html" class="glass inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition hover:scale-[1.02]">
+        <i data-lucide="arrow-left" class="h-4 w-4"></i>Bab 1: Informatika dan Pembelajarannya
+      </a>
+      <a href="bab3.html" class="btn-gradient inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold">
+        Bab 3 <i data-lucide="arrow-right" class="h-4 w-4"></i>
+      </a>
+    </nav>
   </main>
+
+  <div id="toast" class="toast glass-strong rounded-full px-5 py-3 text-sm font-medium"></div>
 
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/data.js"></script>
-  <script src="assets/js/progress.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script src="assets/js/babpage.js"></script>
+
+  <script>
+  /* =========================================================================
+     Bab 2 — Berpikir Komputasional — Materi Lengkap Interaktif
+     ========================================================================= */
+  const STORE_KEY = "informatika8_bab2_materi";
+
+  function loadJSON(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch (e) { return fallback; }
+  }
+  function saveJSON(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+  }
+
+  /* ---------- 1. Fondasi Berpikir Komputasional (flip cards) ---------- */
+  const FONDASI = [
+    { icon: "puzzle", judul: "Dekomposisi", desc: "Memecah masalah besar dan rumit menjadi bagian-bagian kecil yang lebih sederhana sehingga lebih mudah diselesaikan satu per satu." },
+    { icon: "scan-search", judul: "Pengenalan Pola", desc: "Menemukan kesamaan atau pola dari beberapa masalah, sehingga solusi yang pernah berhasil bisa dipakai lagi untuk masalah serupa." },
+    { icon: "layers-3", judul: "Abstraksi", desc: "Fokus pada informasi yang penting saja dan mengabaikan detail yang tidak diperlukan agar masalah lebih mudah dipahami." },
+    { icon: "list-ordered", judul: "Algoritma", desc: "Menyusun langkah-langkah penyelesaian masalah secara runtut, logis, dan jelas sehingga bisa diikuti oleh manusia maupun komputer." },
+  ];
+
+  function renderFondasi() {
+    const grid = document.getElementById("fondasi-grid");
+    grid.innerHTML = FONDASI.map((e, i) => `
+      <div class="flip-card" data-flip="${i}">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+              <i data-lucide="${e.icon}" class="h-4.5 w-4.5"></i>
+            </div>
+            <p class="mt-3 text-sm font-semibold leading-snug">${e.judul}</p>
+            <p class="mt-auto pt-2 text-[11px] text-[var(--text-soft)]">Klik untuk detail →</p>
+          </div>
+          <div class="flip-back">
+            <p class="text-xs leading-relaxed">${e.desc}</p>
+          </div>
+        </div>
+      </div>
+    `).join("");
+    grid.querySelectorAll(".flip-card").forEach((card) => {
+      card.addEventListener("click", () => card.classList.toggle("flipped"));
+    });
+    if (window.lucide) lucide.createIcons();
+  }
+
+  /* ---------- 2. Fungsi (mesin fungsi interaktif) ---------- */
+  const FUNGSI_LIST = [
+    { key: "tambah", label: "f(x) = x + 2", calc: (x) => x + 2 },
+    { key: "kali", label: "f(x) = x × 2", calc: (x) => x * 2 },
+    { key: "kuadrat", label: "f(x) = x²", calc: (x) => x * x },
+  ];
+  let fungsiAktif = "tambah";
+
+  function renderFungsiPicker() {
+    const wrap = document.getElementById("fungsi-picker");
+    wrap.innerHTML = FUNGSI_LIST.map((f) => `<button class="approach-btn ${f.key === fungsiAktif ? "active" : ""} rounded-full px-4 py-2" data-fungsi="${f.key}">${f.label}</button>`).join("");
+    wrap.querySelectorAll("[data-fungsi]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        fungsiAktif = btn.dataset.fungsi;
+        wrap.querySelectorAll("[data-fungsi]").forEach((b) => b.classList.toggle("active", b.dataset.fungsi === fungsiAktif));
+      });
+    });
+  }
+
+  function hitungFungsi() {
+    const x = Number(document.getElementById("fungsi-input").value);
+    const f = FUNGSI_LIST.find((f) => f.key === fungsiAktif);
+    if (Number.isNaN(x)) {
+      showToast("Isi angka yang valid dulu, ya!");
+      return;
+    }
+    const y = f.calc(x);
+    document.getElementById("fungsi-hasil").innerHTML = `
+      <p class="font-semibold text-[var(--text)]">Aturan fungsi: ${f.label}</p>
+      <p class="mt-2">Masukan (domain): <strong class="text-[var(--text)]">x = ${x}</strong></p>
+      <p>Keluaran (range): <strong class="text-[var(--blue-600)]">f(${x}) = ${y}</strong></p>
+    `;
+  }
+
+  /* ---------- 3. Himpunan ---------- */
+  const SET_A = [2, 4, 6, 8, 10];
+  const SET_B = [3, 6, 9];
+  const HIMPUNAN_OPS = [
+    { key: "irisan", label: "A ∩ B (Irisan)" },
+    { key: "gabungan", label: "A ∪ B (Gabungan)" },
+    { key: "selisih", label: "A − B (Selisih)" },
+  ];
+
+  function hitungHimpunan(op) {
+    if (op === "irisan") return SET_A.filter((x) => SET_B.includes(x));
+    if (op === "gabungan") return Array.from(new Set([...SET_A, ...SET_B])).sort((a, b) => a - b);
+    if (op === "selisih") return SET_A.filter((x) => !SET_B.includes(x));
+    return [];
+  }
+
+  function renderHimpunanPicker() {
+    const wrap = document.getElementById("himpunan-picker");
+    wrap.innerHTML = HIMPUNAN_OPS.map((o, i) => `<button class="approach-btn ${i === 0 ? "active" : ""} rounded-full px-4 py-2" data-op="${o.key}">${o.label}</button>`).join("");
+    wrap.querySelectorAll("[data-op]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        wrap.querySelectorAll("[data-op]").forEach((b) => b.classList.toggle("active", b === btn));
+        tampilkanHimpunan(btn.dataset.op);
+      });
+    });
+    tampilkanHimpunan("irisan");
+  }
+
+  function tampilkanHimpunan(op) {
+    const hasil = hitungHimpunan(op);
+    const label = HIMPUNAN_OPS.find((o) => o.key === op).label;
+    document.getElementById("himpunan-hasil").innerHTML = `
+      <p class="font-semibold text-[var(--text)]">${label}</p>
+      <p class="mt-2">A = {${SET_A.join(", ")}} &nbsp;•&nbsp; B = {${SET_B.join(", ")}}</p>
+      <p class="mt-1">Hasil: <strong class="text-[var(--blue-600)]">{${hasil.join(", ") || "∅"}}</strong></p>
+    `;
+  }
+
+  const HIMPUNAN_TERMS = [
+    { term: "Himpunan", desc: "Kumpulan objek (anggota) yang jelas batasannya, sehingga bisa dipastikan suatu objek termasuk anggota atau bukan." },
+    { term: "Anggota", desc: "Setiap objek yang termasuk ke dalam suatu himpunan, disimbolkan dengan tanda ∈ (misalnya 2 ∈ A)." },
+    { term: "Irisan (∩)", desc: "Himpunan baru yang berisi anggota yang dimiliki bersama oleh dua himpunan atau lebih." },
+    { term: "Gabungan (∪)", desc: "Himpunan baru yang berisi seluruh anggota dari dua himpunan atau lebih, tanpa ada duplikat." },
+    { term: "Selisih (−)", desc: "Himpunan baru berisi anggota himpunan pertama yang tidak dimiliki oleh himpunan kedua." },
+    { term: "Himpunan Kosong (∅)", desc: "Himpunan yang tidak memiliki anggota sama sekali, misalnya hasil irisan dua himpunan yang tidak beririsan." },
+  ];
+
+  function renderHimpunanTerms() {
+    const wrap = document.getElementById("himpunan-terms");
+    wrap.innerHTML = HIMPUNAN_TERMS.map((t, i) => `<button class="term-btn tab-pill" data-term="${i}">${t.term}</button>`).join("");
+    wrap.querySelectorAll(".term-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        wrap.querySelectorAll(".term-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const t = HIMPUNAN_TERMS[+btn.dataset.term];
+        document.getElementById("himpunan-detail").innerHTML = `<p class="font-semibold text-[var(--text)] mb-1">${t.term}</p>${t.desc}`;
+      });
+    });
+  }
+
+  /* ---------- 4. Sistem Bilangan (bit toggler) ---------- */
+  const BIT_PLACES = [128, 64, 32, 16, 8, 4, 2, 1];
+  let bitState = new Array(8).fill(0);
+
+  function renderBitRow() {
+    const wrap = document.getElementById("bit-row");
+    wrap.innerHTML = BIT_PLACES.map((p, i) => `
+      <div class="bit-box" data-bit="${i}">
+        <div class="bit-val">${bitState[i]}</div>
+        <span class="bit-place">${p}</span>
+      </div>
+    `).join("");
+    wrap.querySelectorAll(".bit-box").forEach((box) => {
+      box.addEventListener("click", () => {
+        const i = +box.dataset.bit;
+        bitState[i] = bitState[i] ? 0 : 1;
+        renderBitRow();
+        updateBitResult();
+      });
+    });
+    bitState.forEach((v, i) => {
+      const box = wrap.querySelector(`[data-bit="${i}"]`);
+      if (box) box.classList.toggle("on", !!v);
+    });
+  }
+
+  function updateBitResult() {
+    const decimal = bitState.reduce((sum, v, i) => sum + v * BIT_PLACES[i], 0);
+    document.getElementById("bit-decimal").textContent = decimal;
+    document.getElementById("bit-binary").textContent = bitState.slice(0, 4).join("") + " " + bitState.slice(4).join("");
+  }
+
+  /* ---------- 5. Algoritma (flowchart + tebak hasil) ---------- */
+  const FLOWCHART_SIMBOL = [
+    { icon: "circle", nama: "Mulai / Selesai", desc: "Simbol oval menandai titik awal dan akhir sebuah algoritma atau flowchart." },
+    { icon: "square", nama: "Proses", desc: "Simbol persegi panjang menunjukkan sebuah proses atau langkah pengolahan data." },
+    { icon: "diamond", nama: "Keputusan", desc: "Simbol belah ketupat menunjukkan percabangan berdasarkan suatu kondisi (ya/tidak)." },
+    { icon: "log-in", nama: "Input / Output", desc: "Simbol jajaran genjang menandai proses memasukkan data atau menampilkan hasil." },
+  ];
+
+  function renderFlowchart() {
+    const grid = document.getElementById("flowchart-grid");
+    grid.innerHTML = FLOWCHART_SIMBOL.map((s) => `
+      <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 text-center">
+        <div class="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+          <i data-lucide="${s.icon}" class="h-5 w-5"></i>
+        </div>
+        <p class="mt-2 text-xs font-semibold">${s.nama}</p>
+        <p class="mt-1 text-[11px] leading-snug text-[var(--text-soft)]">${s.desc}</p>
+      </div>
+    `).join("");
+    if (window.lucide) lucide.createIcons();
+  }
+
+  const ALGO_TRACE_OPTS = ["6", "8", "10", "4"];
+  const ALGO_TRACE_CORRECT = 2; // "10" -> 1+2+3+4 = 10
+
+  function renderAlgoTrace() {
+    const wrap = document.getElementById("algo-trace");
+    wrap.innerHTML = ALGO_TRACE_OPTS.map((opt, i) => `
+      <button class="quiz-opt" data-o="${i}">
+        <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current text-[10px] font-bold">${String.fromCharCode(65 + i)}</span>
+        <span>${opt}</span>
+      </button>
+    `).join("");
+    wrap.querySelectorAll(".quiz-opt").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.classList.contains("locked")) return;
+        wrap.querySelectorAll(".quiz-opt").forEach((b) => {
+          b.classList.add("locked");
+          const oi = +b.dataset.o;
+          if (oi === ALGO_TRACE_CORRECT) b.classList.add("correct");
+          else if (b === btn) b.classList.add("wrong");
+        });
+        const result = document.getElementById("algo-trace-result");
+        result.classList.remove("hidden");
+        const benar = +btn.dataset.o === ALGO_TRACE_CORRECT;
+        result.style.background = "var(--surface)";
+        result.style.border = "1px solid var(--border)";
+        result.textContent = benar
+          ? "Benar! total = 1 + 2 + 3 + 4 = 10 ✅"
+          : "Belum tepat. Coba telusuri lagi: total bertambah 1, lalu 2, lalu 3, lalu 4 (1+2+3+4 = 10).";
+      });
+    });
+  }
+
+  /* ---------- 6. Struktur Data (flip cards + stack/queue simulator) ---------- */
+  const STRUKTUR_DATA = [
+    { icon: "grid-3x3", judul: "Array / List", desc: "Kumpulan data sejenis yang disimpan berurutan dan memiliki nomor indeks, sehingga tiap data mudah diakses langsung lewat posisinya." },
+    { icon: "layers-2", judul: "Stack (Tumpukan)", desc: "Struktur data LIFO (Last In, First Out) — data yang terakhir dimasukkan adalah yang pertama dikeluarkan. Contoh: tumpukan piring." },
+    { icon: "list-ordered", judul: "Queue (Antrean)", desc: "Struktur data FIFO (First In, First Out) — data yang pertama dimasukkan adalah yang pertama dikeluarkan. Contoh: antre di kasir." },
+    { icon: "link", judul: "Linked List", desc: "Kumpulan data yang setiap bagiannya (node) menyimpan nilai sekaligus 'penunjuk' ke data berikutnya, sehingga mudah disisipi atau dihapus." },
+  ];
+
+  function renderStrukturData() {
+    const grid = document.getElementById("struktur-grid");
+    grid.innerHTML = STRUKTUR_DATA.map((s, i) => `
+      <div class="flip-card" data-flip-s="${i}">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--blue-600)] to-[var(--sky-400)] text-white">
+              <i data-lucide="${s.icon}" class="h-4.5 w-4.5"></i>
+            </div>
+            <p class="mt-3 text-sm font-semibold leading-snug">${s.judul}</p>
+            <p class="mt-auto pt-2 text-[11px] text-[var(--text-soft)]">Klik untuk detail →</p>
+          </div>
+          <div class="flip-back">
+            <p class="text-xs leading-relaxed">${s.desc}</p>
+          </div>
+        </div>
+      </div>
+    `).join("");
+    grid.querySelectorAll(".flip-card").forEach((card) => {
+      card.addEventListener("click", () => card.classList.toggle("flipped"));
+    });
+    if (window.lucide) lucide.createIcons();
+  }
+
+  let stackData = [1, 2, 3];
+  let stackCounter = 4;
+  let queueData = [1, 2, 3];
+  let queueCounter = 4;
+
+  function renderStack() {
+    const wrap = document.getElementById("stack-visual");
+    if (stackData.length === 0) {
+      wrap.innerHTML = `<p class="text-xs text-[var(--text-soft)]">Stack kosong. Klik Push untuk menambah data.</p>`;
+      return;
+    }
+    wrap.innerHTML = stackData.map((v, i) => `<div class="ds-slot ${i === stackData.length - 1 ? "top" : ""}">${v}${i === stackData.length - 1 ? " ← top" : ""}</div>`).join("");
+  }
+
+  function renderQueue() {
+    const wrap = document.getElementById("queue-visual");
+    if (queueData.length === 0) {
+      wrap.innerHTML = `<p class="text-xs text-[var(--text-soft)]">Queue kosong. Klik Enqueue untuk menambah data.</p>`;
+      return;
+    }
+    wrap.innerHTML = queueData.map((v, i) => `<div class="ds-slot ${i === 0 ? "top" : ""}">${v}${i === 0 ? " ← depan" : ""}</div>`).join("");
+  }
+
+  /* ---------- 7. Kuis ---------- */
+  const QUIZ = [
+    { q: "Sebuah fungsi f(x) = x + 3. Jika x = 5, maka nilai f(x) adalah...", opts: ["5", "8", "15", "3"], correct: 1 },
+    { q: "Diketahui A = {1, 2, 3, 4} dan B = {3, 4, 5, 6}. Hasil dari A ∩ B adalah...", opts: ["{1, 2, 3, 4, 5, 6}", "{1, 2}", "{3, 4}", "{5, 6}"], correct: 2 },
+    { q: "Komputer menyimpan dan mengolah data menggunakan sistem bilangan...", opts: ["Desimal (basis 10)", "Biner (basis 2)", "Romawi", "Heksadesimal saja"], correct: 1 },
+    { q: "Ciri algoritma yang baik di antaranya adalah...", opts: ["Langkahnya boleh diulang tanpa akhir", "Jelas, terurut, terbatas, dan efektif", "Hanya bisa dijalankan oleh komputer", "Tidak perlu memiliki langkah akhir"], correct: 1 },
+    { q: "Struktur data yang bekerja dengan prinsip 'data terakhir masuk, pertama keluar' disebut...", opts: ["Queue", "Array", "Stack", "Linked List"], correct: 2 },
+    { q: "Simbol belah ketupat pada flowchart digunakan untuk menunjukkan...", opts: ["Mulai/selesai", "Proses pengolahan data", "Keputusan/percabangan", "Input data"], correct: 2 },
+  ];
+
+  let quizAnswers = {};
+
+  function renderQuiz() {
+    const wrap = document.getElementById("quiz-list");
+    wrap.innerHTML = QUIZ.map((item, qi) => `
+      <div>
+        <p class="mb-3 text-sm font-semibold">${qi + 1}. ${item.q}</p>
+        <div class="flex flex-col gap-2" data-quiz-group="${qi}">
+          ${item.opts.map((opt, oi) => `
+            <button class="quiz-opt" data-q="${qi}" data-o="${oi}">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current text-[10px] font-bold">${String.fromCharCode(65 + oi)}</span>
+              <span>${opt}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+
+    wrap.querySelectorAll(".quiz-opt").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.classList.contains("locked")) return;
+        const qi = btn.dataset.q;
+        quizAnswers[qi] = +btn.dataset.o;
+        wrap.querySelectorAll(`[data-q="${qi}"]`).forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+      });
+    });
+  }
+
+  function submitQuiz() {
+    if (Object.keys(quizAnswers).length < QUIZ.length) {
+      showToast("Jawab semua pertanyaan dulu, yuk!");
+      return;
+    }
+    let score = 0;
+    QUIZ.forEach((item, qi) => {
+      const buttons = document.querySelectorAll(`[data-q="${qi}"]`);
+      buttons.forEach((b) => {
+        b.classList.add("locked");
+        const oi = +b.dataset.o;
+        if (oi === item.correct) b.classList.add("correct");
+        else if (oi === quizAnswers[qi]) b.classList.add("wrong");
+      });
+      if (quizAnswers[qi] === item.correct) score++;
+    });
+
+    const percent = Math.round((score / QUIZ.length) * 100);
+    let msg = "Terus berlatih, ya! 💪";
+    if (percent >= 80) msg = "Luar biasa! Kamu sudah sangat memahami Bab 2. 🎉";
+    else if (percent >= 60) msg = "Bagus! Sedikit lagi menuju pemahaman penuh. 👍";
+
+    const result = document.getElementById("quiz-result");
+    result.classList.remove("hidden");
+    result.style.background = "var(--surface)";
+    result.style.border = "1px solid var(--border)";
+    result.innerHTML = `
+      <p class="text-3xl font-extrabold text-gradient">${score}/${QUIZ.length}</p>
+      <p class="mt-1 text-sm text-[var(--text-soft)]">Skor kamu: ${percent}%</p>
+      <p class="mt-2 text-sm font-medium">${msg}</p>
+    `;
+
+    document.getElementById("quiz-submit").classList.add("hidden");
+    document.getElementById("quiz-reset").classList.remove("hidden");
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function resetQuiz() {
+    quizAnswers = {};
+    document.getElementById("quiz-result").classList.add("hidden");
+    document.getElementById("quiz-submit").classList.remove("hidden");
+    document.getElementById("quiz-reset").classList.add("hidden");
+    renderQuiz();
+    if (window.lucide) lucide.createIcons();
+  }
+
+  /* ---------- Tabs & progres materi ---------- */
+  function setActiveTab(id) {
+    document.querySelectorAll(".section-panel").forEach((s) => s.classList.toggle("active", s.id === "section-" + id));
+    document.querySelectorAll(".tab-pill").forEach((t) => t.classList.toggle("active", t.dataset.tab === String(id)));
+    window.scrollTo({ top: document.getElementById("tab-bar").offsetTop - 90, behavior: "smooth" });
+  }
+
+  function updateMateriProgress() {
+    const done = loadJSON(STORE_KEY, {});
+    const total = 6;
+    const count = [1, 2, 3, 4, 5, 6].filter((i) => done[i]).length;
+    document.getElementById("materi-progress-label").textContent = `${count} / ${total}`;
+    document.getElementById("materi-progress-fill").style.width = `${(count / total) * 100}%`;
+    [1, 2, 3, 4, 5, 6].forEach((i) => {
+      const dot = document.querySelector(`[data-dot="${i}"]`);
+      if (dot) dot.classList.toggle("hidden", !done[i]);
+      const btn = document.querySelector(`.mark-done[data-section="${i}"]`);
+      if (btn) {
+        btn.querySelector("span").textContent = done[i] ? "Sudah Dipelajari" : "Tandai Selesai";
+        btn.querySelector("i").setAttribute("data-lucide", done[i] ? "check-check" : "check");
+      }
+    });
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function init() {
+    setActiveTab(1);
+    if (window.lucide) lucide.createIcons();
+    if (window.AOS) AOS.init({ duration: 600, once: true, offset: 40 });
+
+    const steps = [
+      ["renderFondasi", () => renderFondasi()],
+      ["renderFungsiPicker", () => renderFungsiPicker()],
+      ["renderHimpunanPicker", () => renderHimpunanPicker()],
+      ["renderHimpunanTerms", () => renderHimpunanTerms()],
+      ["renderBitRow", () => { renderBitRow(); updateBitResult(); }],
+      ["renderFlowchart", () => renderFlowchart()],
+      ["renderAlgoTrace", () => renderAlgoTrace()],
+      ["renderStrukturData", () => renderStrukturData()],
+      ["renderStack", () => renderStack()],
+      ["renderQueue", () => renderQueue()],
+      ["renderQuiz", () => renderQuiz()],
+      ["updateMateriProgress", () => updateMateriProgress()],
+    ];
+    steps.forEach(([name, fn]) => {
+      try {
+        fn();
+      } catch (err) {
+        console.error(`[Bab 2] Gagal menjalankan ${name}():`, err);
+      }
+    });
+
+    document.querySelectorAll(".tab-pill[data-tab]").forEach((t) => t.addEventListener("click", () => setActiveTab(t.dataset.tab)));
+    document.querySelectorAll(".next-section").forEach((b) => b.addEventListener("click", () => setActiveTab(b.dataset.next)));
+
+    document.getElementById("fungsi-hitung").addEventListener("click", hitungFungsi);
+
+    document.getElementById("stack-push").addEventListener("click", () => {
+      if (stackData.length >= 6) { showToast("Stack penuh! Coba Pop dulu."); return; }
+      stackData.push(stackCounter++);
+      renderStack();
+    });
+    document.getElementById("stack-pop").addEventListener("click", () => {
+      if (stackData.length === 0) { showToast("Stack sudah kosong."); return; }
+      const v = stackData.pop();
+      showToast(`Pop: data ${v} dikeluarkan`);
+      renderStack();
+    });
+
+    document.getElementById("queue-enqueue").addEventListener("click", () => {
+      if (queueData.length >= 6) { showToast("Queue penuh! Coba Dequeue dulu."); return; }
+      queueData.push(queueCounter++);
+      renderQueue();
+    });
+    document.getElementById("queue-dequeue").addEventListener("click", () => {
+      if (queueData.length === 0) { showToast("Queue sudah kosong."); return; }
+      const v = queueData.shift();
+      showToast(`Dequeue: data ${v} dikeluarkan`);
+      renderQueue();
+    });
+
+    document.querySelectorAll(".mark-done").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const s = btn.dataset.section;
+        const done = loadJSON(STORE_KEY, {});
+        done[s] = !done[s];
+        saveJSON(STORE_KEY, done);
+        updateMateriProgress();
+        showToast(done[s] ? "Materi ditandai selesai ✅" : "Tanda selesai dihapus");
+      });
+    });
+
+    document.getElementById("quiz-submit").addEventListener("click", submitQuiz);
+    document.getElementById("quiz-reset").addEventListener("click", resetQuiz);
+
+    if (window.lucide) lucide.createIcons();
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+  </script>
 </body>
 </html>
